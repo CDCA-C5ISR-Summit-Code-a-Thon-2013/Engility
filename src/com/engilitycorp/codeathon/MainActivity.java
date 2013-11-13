@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import com.engilitycorp.codeathon.FilterAnimation;
 
 import com.engilitycorp.R;
+import com.engilitycorp.codeathon.location.LocationService;
+import com.engilitycorp.codeathon.location.MapHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -39,6 +41,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     FilterAnimation filterAnimation;
     Resources resources;
 
+    private MapHandler mapHandler;
+    private LocationService locationService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -54,36 +59,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         filterAnimation = new FilterAnimation(this);
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         resources = getResources();
 
-
+        initializeLocationUpdates();
         initializeAnimations();
 
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                updateLocation(location);
-            }
 
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
 
     private void updateLocation(Location location){
@@ -165,4 +146,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+
+    private void initializeLocationUpdates(){
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        GoogleMap map = mapFragment.getMap();
+
+        mapHandler = new MapHandler(map);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationService = new LocationService();
+        locationService.setLocationManager(locationManager);
+        locationService.setRefreshRate(60000L);
+        locationService.setMapHandler(mapHandler);
+        locationService.startListening();
+    }
 }
