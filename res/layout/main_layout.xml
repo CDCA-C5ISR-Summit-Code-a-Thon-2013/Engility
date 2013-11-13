@@ -12,13 +12,13 @@
     android:layout_height="match_parent"
     android:name="com.google.android.gms.maps.MapFragment"/>
 
-    <!--<Button-->
-        <!--android:id="@+id/filter"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:background="@drawable/bg" />-->
+    <Button
+        android:id="@+id/menu_button"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg" />
 
     <ImageView
         android:layout_width="32dp"

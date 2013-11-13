@@ -12,11 +12,14 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.engilitycorp.codeathon.FilterAnimation;
 
 import com.engilitycorp.R;
+import com.engilitycorp.codeathon.location.LocationService;
+import com.engilitycorp.codeathon.location.MapHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -38,6 +41,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     FilterAnimation filterAnimation;
     Resources resources;
 
+    private MapHandler mapHandler;
+    private LocationService locationService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,41 +54,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         mainLayout = (RelativeLayout)findViewById(R.id.main_layout);
 
-//        btFilter = (Button)findViewById(R.id.filter);
-//        btFilter.setOnClickListener(this);
+        btFilter = (Button)findViewById(R.id.menu_button);
+        btFilter.setOnClickListener(this);
 
         filterAnimation = new FilterAnimation(this);
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         resources = getResources();
 
+        initializeLocationUpdates();
+        initializeAnimations();
 
-        //initializeAnimations();
 
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                updateLocation(location);
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
 
     private void updateLocation(Location location){
@@ -103,65 +85,78 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        map.addMarker(new MarkerOptions().position(latLng).title("Test"));
 
     }
-//
-//    private void initializeAnimations()
-//    {   //Setting GlobolLayoutListener,when layout is completely set this function will get called and we can have our layout onbject with correct width & height,else if you simply try to get width/height of your layout in onCreate it will return 0
-//
-//        final ViewTreeObserver filterObserver = mainLayout.getViewTreeObserver();
-//
-//        filterObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-//        {
-//
-//            @Override
-//            public void onGlobalLayout()
-//            {
-//                mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//
-//                DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-//
-//                int deviceWidth = displayMetrics.widthPixels;
-//
-//                int filterLayoutWidth = (deviceWidth * 80) / 100; //here im coverting device percentage width into pixels, in my other_slide_in.xml or other_slide_out.xml you can see that i have set the android:toXDelta="80%",so it means the layout will move to 80% of the device screen,to work across all screens i have converted percentage width into pixels and then used it
-//
-//                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(filterLayoutWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
-//
-//                mainLayout.setLayoutParams(params);//here im setting the layout params for my because its has width 260 dp,so work it across all screen i first make layout adjustments so that it work across all screens resolution
-//
-//                filterAnimation.initializeFilterAnimations(mainLayout);
-//
-//            }
-//        });
-//
-//        final ViewTreeObserver findObserver = menuLayout.getViewTreeObserver();
-//
-//        findObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-//        {
-//
-//            @Override
-//            public void onGlobalLayout()
-//            {
-//                menuLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//
-//                filterAnimation.initializeOtherAnimations(menuLayout);
-//            }
-//        });
-//
-//    }
+
+    private void initializeAnimations()
+    {   //Setting GlobolLayoutListener,when layout is completely set this function will get called and we can have our layout onbject with correct width & height,else if you simply try to get width/height of your layout in onCreate it will return 0
+
+        final ViewTreeObserver filterObserver = mainLayout.getViewTreeObserver();
+
+        filterObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+        {
+
+            @Override
+            public void onGlobalLayout()
+            {
+                mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+
+                int deviceWidth = displayMetrics.widthPixels;
+
+                int filterLayoutWidth = (deviceWidth * 80) / 100; //here im coverting device percentage width into pixels, in my other_slide_in.xml or other_slide_out.xml you can see that i have set the android:toXDelta="80%",so it means the layout will move to 80% of the device screen,to work across all screens i have converted percentage width into pixels and then used it
+
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(filterLayoutWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
+
+                menuLayout.setLayoutParams(params);//here im setting the layout params for my because its has width 260 dp,so work it across all screen i first make layout adjustments so that it work across all screens resolution
+
+                filterAnimation.initializeFilterAnimations(menuLayout);
+
+            }
+        });
+
+        final ViewTreeObserver findObserver = menuLayout.getViewTreeObserver();
+
+        findObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+        {
+
+            @Override
+            public void onGlobalLayout()
+            {
+                menuLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                filterAnimation.initializeOtherAnimations(menuLayout);
+            }
+        });
+
+    }
 
     @Override
     public void onClick(View v)
     {
-//        int id = v.getId();
-//
-//        switch(id)
-//        {
-//
-//            case R.id.filter:
-//
-//                filterAnimation.toggleSliding();
-//
-//                break;
-//        }
+        int id = v.getId();
+
+        switch(id)
+        {
+
+            case R.id.menu_layout:
+
+                filterAnimation.toggleSliding();
+
+                break;
+        }
     }
 
+
+    private void initializeLocationUpdates(){
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        GoogleMap map = mapFragment.getMap();
+
+        mapHandler = new MapHandler(map);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationService = new LocationService();
+        locationService.setLocationManager(locationManager);
+        locationService.setRefreshRate(60000L);
+        locationService.setMapHandler(mapHandler);
+        locationService.startListening();
+    }
 }
