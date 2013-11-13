@@ -17,9 +17,23 @@ import java.util.Map;
  */
 public class DataStore {
 
+    private static DataStore dataStore;
+
     private Map<Long, Location> locationMap = new HashMap<Long, Location>();
     private Map<Long, Messages> messagesMap = new HashMap<Long, Messages>();
     private Map<Long, Users> usersMap = new HashMap<Long, Users>();
+
+    private DataStore(){
+
+    }
+
+    public static DataStore getDataStore(){
+        if(dataStore == null){
+            dataStore = new DataStore();
+        }
+
+        return dataStore;
+    }
 
     public Location getLocation(long id){
         if(locationMap.containsKey(id)){
