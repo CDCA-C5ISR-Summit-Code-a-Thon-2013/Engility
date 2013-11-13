@@ -12,20 +12,22 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
-import com.engilitycorp.codeathon.FilterAnimation;
-
 import com.engilitycorp.R;
+import com.engilitycorp.codeathon.data.Messages;
+import com.engilitycorp.codeathon.data.Users;
 import com.engilitycorp.codeathon.location.LocationService;
 import com.engilitycorp.codeathon.location.MapHandler;
+import com.engilitycorp.codeathon.messaging.MessageSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,7 +41,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     RelativeLayout menuLayout, mainLayout;
     Button btFilter;
     FilterAnimation filterAnimation;
-    Resources resources;
 
     private MapHandler mapHandler;
     private LocationService locationService;
@@ -59,10 +60,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         filterAnimation = new FilterAnimation(this);
 
-        resources = getResources();
-
         initializeLocationUpdates();
         initializeAnimations();
+
+        Button sendButton = (Button)findViewById(R.id.send_button);
+        final EditText msgText = (EditText)findViewById(R.id.send_text);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MessageSender messageSender = MessageSender.getMessageSender();
+
+                Users sndUser = new Users();
+                Messages msgs = new Messages();
+                Users recUser = new Users();
+
+
+                //Temp variables
+                recUser.setPhoneNo("8595367600");
+                recUser.setId(0L);
+                recUser.setUserName("Test");
+
+                sndUser.setPhoneNo("8595367600");
+                sndUser.setId(0L);
+                sndUser.setUserName("Test");
+
+
+                msgs.setMsg(msgText.getText().toString());
+                msgs.setMsg_timestamp(new Date());
+
+
+                messageSender.sendMessage(sndUser, msgs, recUser);
+            }
+        });
 
 
     }
@@ -97,15 +126,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onGlobalLayout()
             {
-                mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                menuLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
-                DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
                 int deviceWidth = displayMetrics.widthPixels;
 
-                int filterLayoutWidth = (deviceWidth * 80) / 100; //here im coverting device percentage width into pixels, in my other_slide_in.xml or other_slide_out.xml you can see that i have set the android:toXDelta="80%",so it means the layout will move to 80% of the device screen,to work across all screens i have converted percentage width into pixels and then used it
+                int menuLayoutWidth = (deviceWidth * 80) / 100; //here im coverting device percentage width into pixels, in my other_slide_in.xml or other_slide_out.xml you can see that i have set the android:toXDelta="80%",so it means the layout will move to 80% of the device screen,to work across all screens i have converted percentage width into pixels and then used it
 
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(filterLayoutWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(menuLayoutWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
 
                 menuLayout.setLayoutParams(params);//here im setting the layout params for my because its has width 260 dp,so work it across all screen i first make layout adjustments so that it work across all screens resolution
 
@@ -114,7 +143,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-        final ViewTreeObserver findObserver = menuLayout.getViewTreeObserver();
+        final ViewTreeObserver findObserver = mainLayout.getViewTreeObserver();
 
         findObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
         {
@@ -122,9 +151,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onGlobalLayout()
             {
-                menuLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
-                filterAnimation.initializeOtherAnimations(menuLayout);
+                filterAnimation.initializeOtherAnimations(mainLayout);
             }
         });
 
@@ -138,7 +167,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch(id)
         {
 
-            case R.id.menu_layout:
+            case R.id.menu_button:
 
                 filterAnimation.toggleSliding();
 
