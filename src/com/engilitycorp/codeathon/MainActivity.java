@@ -3,7 +3,6 @@ package com.engilitycorp.codeathon;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,8 +20,6 @@ import com.engilitycorp.codeathon.FilterAnimation;
 import com.engilitycorp.R;
 import com.engilitycorp.codeathon.location.LocationService;
 import com.engilitycorp.codeathon.location.MapHandler;
-import com.engilitycorp.codeathon.messaging.MessageReceiver;
-import com.engilitycorp.codeathon.messaging.MessageSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -66,12 +63,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         resources = getResources();
 
-        initializeMessageSend();
         initializeLocationUpdates();
-        initializeMessageReceive();
         initializeAnimations();
 
-     }
+
+    }
 
     private void updateLocation(Location location){
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -128,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onGlobalLayout()
             {
-                menuLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
                 filterAnimation.initializeOtherAnimations(menuLayout);
             }
