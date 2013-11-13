@@ -3,6 +3,7 @@ package com.engilitycorp.codeathon;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,6 +21,8 @@ import com.engilitycorp.codeathon.FilterAnimation;
 import com.engilitycorp.R;
 import com.engilitycorp.codeathon.location.LocationService;
 import com.engilitycorp.codeathon.location.MapHandler;
+import com.engilitycorp.codeathon.messaging.MessageReceiver;
+import com.engilitycorp.codeathon.messaging.MessageSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -63,7 +66,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         resources = getResources();
 
+        initializeMessageSend();
         initializeLocationUpdates();
+        initializeMessageReceive();
         initializeAnimations();
 
 
@@ -153,7 +158,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         GoogleMap map = mapFragment.getMap();
 
-        mapHandler = new MapHandler(map);
+        mapHandler = new MapHandler(map, messageSender);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationService = new LocationService();
         locationService.setLocationManager(locationManager);
