@@ -13,5 +13,5 @@ public abstract class MessageKeys {
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
     public static final String MESSAGE = "MESSAGE";
-
+    public static final String TIMESTAMP = "TIME";
 }
