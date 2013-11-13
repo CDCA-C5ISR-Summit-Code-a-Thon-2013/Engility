@@ -1,4 +1,4 @@
-package com.engilitycorp.codeathon;
+package com.engilitycorp.codeathon.data;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Date;
 
 /**
  * Holds MessageS that will be brodcasted.

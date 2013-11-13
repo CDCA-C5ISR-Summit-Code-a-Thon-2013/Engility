@@ -1,4 +1,4 @@
-package com.engilitycorp.codeathon;
+package com.engilitycorp.codeathon.data;
 
 import android.app.Activity;
 import android.os.Bundle;
