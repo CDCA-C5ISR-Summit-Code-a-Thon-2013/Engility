@@ -10,7 +10,7 @@
                    android:value="AIzaSyDPTN95uRxZUxow7G_w8sXY2gGRc8UzGWI"/>
 
 
-        <activity android:name=".codeathon.TestActivity"
+        <activity android:name=".codeathon.MainActivity"
                   android:label="Test Map Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
