@@ -6,13 +6,23 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import com.engilitycorp.R;
+import com.engilitycorp.codeathon.data.Messages;
+import com.engilitycorp.codeathon.data.Users;
+import com.engilitycorp.codeathon.location.LocationService;
+import com.engilitycorp.codeathon.location.MapHandler;
+import com.engilitycorp.codeathon.messaging.MessageSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,40 +33,40 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class TestActivity extends Activity{
 
+    private static int count = 0;
+
+    private MessageSender messageSender;
+
+    private Handler handler;
+    private Marker myMarker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        messageSender = MessageSender.getMessageSender();
+//        handler = new Handler(){
+//            public void handleMessage( Message msg ){
+//                Bundle locBundle = msg.getData();
+//                updateLocation(locBundle.getDouble(LocationService.LAT), locBundle.getDouble(LocationService.LON), locBundle.getDouble(LocationService.TIME));
+//            }
+//        };
+
         setContentView(R.layout.test_map);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        GoogleMap map = mapFragment.getMap();
+        handler = new MapHandler( map );
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                updateLocation(location);
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        LocationService locationService = new LocationService();
+        locationService.setLocationManager(locationManager);
+        locationService.setRefreshRate(10000L);
+        locationService.setMapHandler(handler);
+        locationService.startListening();
     }
 
-    private void updateLocation(Location location){
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+    private void updateLocation(double lat, double lon, double time){
+        LatLng latLng = new LatLng(lat, lon);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
@@ -70,7 +80,13 @@ public class TestActivity extends Activity{
         GoogleMap map = mapFragment.getMap();
 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        map.addMarker(new MarkerOptions().position(latLng).title("Test"));
+
+        ++count;
+        Marker newMarker = map.addMarker(new MarkerOptions().position(latLng).title("Test " + count));
+        if(myMarker != null){
+            myMarker.remove();
+        }
+        myMarker = newMarker;
 
     }
 
