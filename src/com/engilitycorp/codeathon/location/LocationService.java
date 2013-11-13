@@ -26,6 +26,7 @@ public class LocationService implements LocationListener{
     public static final String LON = "LON";
     public static final String LAT = "LAT";
     public static final String TIME = "TIME";
+    public static final int MY_LOCATION = 100;
 
     private LocationManager locationManager;
     private Handler mapHandler;
@@ -53,6 +54,7 @@ public class LocationService implements LocationListener{
     public void onLocationChanged(Location location) {
         if( (location.getTime() - lastUpdate) >= refreshRate ){
             Message locationMessage = new Message();
+            locationMessage.what = MY_LOCATION;
             Bundle locationBundle = new Bundle();
             locationBundle.putDouble(LAT, location.getLatitude());
             locationBundle.putDouble(LON, location.getLongitude());

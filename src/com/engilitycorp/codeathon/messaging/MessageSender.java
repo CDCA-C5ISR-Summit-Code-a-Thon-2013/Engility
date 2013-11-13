@@ -34,6 +34,7 @@ public class MessageSender {
 
         JSONObject locationMessage = new JSONObject();
         try {
+            locationMessage.put( MessageKeys.TYPE, MessageKeys.TYPE_LOCATION );
             locationMessage.put( MessageKeys.SENDER, sender.getUserName() );
             locationMessage.put( MessageKeys.LATITUDE, location.getLat() );
             locationMessage.put( MessageKeys.LONGITUDE, location.getLon() );
@@ -50,6 +51,7 @@ public class MessageSender {
     public void sendMessage(Users sender, Messages messages, Users recipient){
         JSONObject json = new JSONObject();
         try {
+            json.put( MessageKeys.TYPE, MessageKeys.TYPE_MESSAGE );
             json.put( MessageKeys.SENDER, sender.getUserName() );
             json.put( MessageKeys.MESSAGE, messages.getMsg() );
             json.put( MessageKeys.TIMESTAMP, messages.getMsg_timestamp().getTime() );
