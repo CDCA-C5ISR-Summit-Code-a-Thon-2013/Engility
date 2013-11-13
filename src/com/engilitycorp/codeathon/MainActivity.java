@@ -2,10 +2,14 @@ package com.engilitycorp.codeathon;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import com.engilitycorp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,12 +25,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Time: 9:26 AM
  * To change this template use File | Settings | File Templates.
  */
-public class TestActivity extends Activity{
+public class MainActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_map);
+
+        final Intent intent = new Intent(MainActivity.this, MessagesActivity.class);
+
+        ImageView notificationIcon = (ImageView) findViewById(R.id.notification_button);
+        notificationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intent);
+            }
+        });
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
