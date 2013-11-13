@@ -162,7 +162,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationService = new LocationService();
         locationService.setLocationManager(locationManager);
-        locationService.setRefreshRate(60000L);
+        locationService.setRefreshRate(6000000L);
         locationService.setMapHandler(mapHandler);
         locationService.startListening();
     }
@@ -173,9 +173,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         receivedIntentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
         registerReceiver(messageReceiver, receivedIntentFilter);
 
-//        Intent intent = new Intent();
-//        intent.getExtras();
-//        messageReceiver.onReceive( null, new Intent() );
     }
 
     private void initializeMessageSend(){

@@ -44,7 +44,7 @@ public class MessageReceiver extends BroadcastReceiver {
             msgs = new SmsMessage[pdus.length];
 
             for (int i=0; i<msgs.length; i++){
-
+                msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
                 try {
                     JSONObject msg = new JSONObject(msgs[i].getMessageBody().toString());
                     parseSmsJSON(msg);
@@ -54,13 +54,6 @@ public class MessageReceiver extends BroadcastReceiver {
             }
         }
 
-//        try {
-//            String s = "{\"TYPE\":\"LOC\",\"TIME\":1384371224684, \"SENDER\":\"KEITH\", \"LAT\":32.869, \"LON\":-80.024}";
-//            JSONObject msg = new JSONObject(s);
-//            parseSmsJSON(msg);
-//        } catch (JSONException e) {
-//            //TODO something
-//        }
     }
 
     private void parseSmsJSON( JSONObject json ) throws JSONException {
