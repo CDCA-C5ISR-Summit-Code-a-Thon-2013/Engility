@@ -1,4 +1,4 @@
-package com.engilitycorp.codeathon;
+package com.engilitycorp.codeathon.data;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,8 +18,9 @@ public class Location {
 
     private long locid;
 
-    //1,1
-    private String coords;
+    private double lat;
+
+    private double lon;
 
     //cafeteria
     private String locName;
@@ -33,12 +34,20 @@ public class Location {
         this.locid = locid;
     }
 
-    public String getCoords() {
-        return coords;
+    public double getLat() {
+        return lat;
     }
 
-    public void setCoords(String coords) {
-        this.coords = coords;
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public String getLocName() {

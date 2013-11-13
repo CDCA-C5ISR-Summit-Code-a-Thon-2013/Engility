@@ -1,4 +1,4 @@
-package com.engilitycorp.codeathon;
+package com.engilitycorp.codeathon.data;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Date;
 
 /**
  * Holds MessageS that will be brodcasted.
@@ -21,7 +22,7 @@ public class Messages {
     private long msgid;
 
     /**
-     * indicate if message is active or old
+     * indicate if messaging is active or old
      */
     private Boolean active;
 
@@ -30,6 +31,7 @@ public class Messages {
      */
     private Date msg_timestamp;
 
+    private String msg;
 
 
     public long getMsgid() {
@@ -56,7 +58,13 @@ public class Messages {
         this.msg_timestamp = msg_timestamp;
     }
 
+    public String getMsg(){
+        return msg;
+    }
 
+    public void setMsg(String msg){
+        this.msg = msg;
+    }
 
 
 
