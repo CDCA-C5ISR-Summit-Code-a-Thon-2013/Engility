@@ -23,37 +23,36 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class TestActivity extends Activity{
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_map);
 
-//        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//
-//        LocationListener locationListener = new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                updateLocation(location);
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String s, int i, Bundle bundle) {
-//                //To change body of implemented methods use File | Settings | File Templates.
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String s) {
-//                //To change body of implemented methods use File | Settings | File Templates.
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String s) {
-//                //To change body of implemented methods use File | Settings | File Templates.
-//            }
-//        };
-//
-//        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                updateLocation(location);
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        };
+
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
 
     private void updateLocation(Location location){
@@ -74,5 +73,6 @@ public class TestActivity extends Activity{
         map.addMarker(new MarkerOptions().position(latLng).title("Test"));
 
     }
+
 
 }
