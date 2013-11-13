@@ -24,7 +24,6 @@ public class DataStore {
     private Map<Long, Users> usersMap = new HashMap<Long, Users>();
 
     private DataStore(){
-
     }
 
     public static DataStore getDataStore(){

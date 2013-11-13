@@ -22,7 +22,7 @@ public class Messages {
     private long msgid;
 
     /**
-     * indicate if message is active or old
+     * indicate if messaging is active or old
      */
     private Boolean active;
 
@@ -31,6 +31,7 @@ public class Messages {
      */
     private Date msg_timestamp;
 
+    private String msg;
 
 
     public long getMsgid() {
@@ -57,7 +58,13 @@ public class Messages {
         this.msg_timestamp = msg_timestamp;
     }
 
+    public String getMsg(){
+        return msg;
+    }
 
+    public void setMsg(String msg){
+        this.msg = msg;
+    }
 
 
 
