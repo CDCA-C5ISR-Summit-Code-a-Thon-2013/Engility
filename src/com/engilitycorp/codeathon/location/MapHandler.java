@@ -107,11 +107,6 @@ public class MapHandler extends Handler {
             receiver.setPhoneNo(phone);
             messageSender.sendLocation(sender, location, receiver);
         }
-
-        /*Users receiver = new Users();
-        receiver.setPhoneNo("7329486747");*/
-       // receiver.setPhoneNo("8595367600");
-  //      messageSender.sendLocation(sender, location, receiver);
     }
 
     private void handleOtherLocation(Message msg){
