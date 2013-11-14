@@ -172,7 +172,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationService = new LocationService();
         locationService.setLocationManager(locationManager);
-        locationService.setRefreshRate(6000000L);
+        locationService.setRefreshRate(60000L);
         locationService.setMapHandler(mapHandler);
         locationService.startListening();
     }
