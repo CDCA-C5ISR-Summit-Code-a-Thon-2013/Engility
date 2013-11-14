@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import com.engilitycorp.codeathon.FilterAnimation;
 
 import com.engilitycorp.R;
+import com.engilitycorp.codeathon.data.Messages;
+import com.engilitycorp.codeathon.data.Users;
 import com.engilitycorp.codeathon.location.LocationService;
 import com.engilitycorp.codeathon.location.MapHandler;
 import com.engilitycorp.codeathon.location.TextHandler;
@@ -31,6 +33,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -93,8 +97,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void submitMessage(){
-        //TEST
+        String sName = sender.getText().toString();
+        String rName = recipient.getText().toString();
+        mapHandler.setUserName(sName);
+        mapHandler.addUsersPhone(rName);
 
+        String textToSend = messageText.getText().toString();
+
+        Users sender = new Users();
+        sender.setUserName(sName);
+        Messages messages = new Messages();
+        messages.setMsg(textToSend);
+        messages.setMsg_timestamp(new Date());
+        Users recipient = new Users();
+        recipient.setPhoneNo(rName);
+        messageSender.sendMessage(sender, messages, recipient);
     }
 
     private void updateLocation(Location location){

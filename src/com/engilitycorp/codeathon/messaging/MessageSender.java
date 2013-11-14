@@ -38,14 +38,16 @@ public class MessageSender {
             locationMessage.put( MessageKeys.SENDER, sender.getUserName() );
             locationMessage.put( MessageKeys.LATITUDE, location.getLat() );
             locationMessage.put( MessageKeys.LONGITUDE, location.getLon() );
-        } catch (JSONException e) {
+
+            String sms = locationMessage.toString();
+            sendSmsMessage(recipient.getPhoneNo(), sms);
+        } catch (Exception e) {
             //TODO Replace this with something
 
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        String sms = locationMessage.toString();
-        sendSmsMessage(recipient.getPhoneNo(), sms);
+
     }
 
     public void sendMessage(Users sender, Messages messages, Users recipient){
@@ -56,14 +58,15 @@ public class MessageSender {
             json.put( MessageKeys.MESSAGE, messages.getMsg() );
             json.put( MessageKeys.TIMESTAMP, messages.getMsg_timestamp().getTime() );
 
-        } catch (JSONException e) {
+            String sms = json.toString();
+            sendSmsMessage(recipient.getPhoneNo(), sms);
+        } catch (Exception e) {
             //TODO Replace this with something
 
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        String sms = json.toString();
-        sendSmsMessage(recipient.getPhoneNo(), sms);
+
     }
 
     private void sendSmsMessage(String dest, String sms){

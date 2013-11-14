@@ -38,6 +38,7 @@ public class MapHandler extends Handler {
     private MessageSender messageSender;
     private  Set<String> usersPhoneSet = new HashSet<String>();
     private boolean initialZoom = false;
+    private String userName = "UNKNOWN";
 
     public MapHandler(GoogleMap map, MessageSender sender){
         super();
@@ -58,6 +59,10 @@ public class MapHandler extends Handler {
         }
 
 
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
     }
 
     public void addUsersPhone(String phoneNo) {
@@ -91,7 +96,7 @@ public class MapHandler extends Handler {
 
 
         Users sender = new Users(  );
-        sender.setUserName("KEITH");
+        sender.setUserName(userName);
         Location location = new Location();
         location.setLat(lat);
         location.setLon(lon);
