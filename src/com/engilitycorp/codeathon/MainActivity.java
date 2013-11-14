@@ -42,6 +42,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     RelativeLayout menuLayout, mainLayout;
     Button btFilter;
+    Button sendButton;
     FilterAnimation filterAnimation;
     Resources resources;
     EditText sender;
@@ -68,6 +69,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         sender = (EditText)findViewById(R.id.sender);
         recipient = (EditText)findViewById(R.id.recipient);
         messageText = (EditText)findViewById(R.id.send_text);
+        sendButton = (Button)findViewById(R.id.send_button);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitMessage();
+            }
+        });
 
         filterAnimation = new FilterAnimation(this);
 
@@ -77,6 +85,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         initializeLocationUpdates();
         initializeMessageReceive();
         initializeAnimations();
+
+
+    }
+
+    private void submitMessage(){
 
 
     }
