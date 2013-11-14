@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Engility</string>
+    <string name="app_name">Fighter Map</string>
     <string name="notification_desc">Notifications</string>
 
 </resources>
