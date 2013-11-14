@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -43,6 +44,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Button btFilter;
     FilterAnimation filterAnimation;
     Resources resources;
+    EditText sender;
+    EditText recipient;
 
     private MapHandler mapHandler;
     private LocationService locationService;
@@ -56,11 +59,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.main_layout);
 
         menuLayout = (RelativeLayout)findViewById(R.id.menu_layout);
-
         mainLayout = (RelativeLayout)findViewById(R.id.main_layout);
 
         btFilter = (Button)findViewById(R.id.menu_button);
         btFilter.setOnClickListener(this);
+
+        sender = (EditText)findViewById(R.id.sender);
+        recipient = (EditText)findViewById(R.id.recipient);
 
         filterAnimation = new FilterAnimation(this);
 
