@@ -8,6 +8,7 @@ import android.os.Message;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 import com.engilitycorp.codeathon.location.MapHandler;
+import com.engilitycorp.codeathon.location.TextHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,11 +26,14 @@ public class MessageReceiver extends BroadcastReceiver {
     public static final String LAT = "LAT";
     public static final String TIME = "TIME";
     public static final String USER = "USER";
+    public static final String TEXT = "TEXT";
 
     private MapHandler mapHandler;
+    private TextHandler textHandler;
 
-    public MessageReceiver(MapHandler mapHandler){
+    public MessageReceiver(MapHandler mapHandler, TextHandler textHandler){
         this.mapHandler = mapHandler;
+        this.textHandler = textHandler;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class MessageReceiver extends BroadcastReceiver {
             handleLocationMessage(json);
         }
         else if( MessageKeys.TYPE_MESSAGE.equals(type) ){
-
+            handleOtherMessage(json);
         }
     }
 
@@ -80,6 +84,18 @@ public class MessageReceiver extends BroadcastReceiver {
         locationBundle.putDouble(LON, lon);
         message.setData(locationBundle);
         mapHandler.sendMessage(message);
+    }
+
+    private void handleOtherMessage(JSONObject textMessage) throws JSONException{
+        String user = textMessage.getString(MessageKeys.SENDER);
+        String msg = textMessage.getString(MessageKeys.MESSAGE);
+
+        Message message = new Message();
+        Bundle bundle = new Bundle();
+        bundle.putString(USER, user);
+        bundle.putString(TEXT, msg);
+        message.setData(bundle);
+        textHandler.sendMessage(message);
     }
 
 }
