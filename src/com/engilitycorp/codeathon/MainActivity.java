@@ -145,7 +145,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch(id)
         {
 
-            case R.id.menu_layout:
+            case R.id.menu_button:
 
                 filterAnimation.toggleSliding();
 
