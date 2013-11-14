@@ -22,7 +22,7 @@ public class TextHandler  extends Handler {
     }
 
     public void handleMessage( Message msg ){
-        Bundle bundle = new Bundle();
+        Bundle bundle = msg.getData();
         String user = bundle.getString(MessageReceiver.USER);
         String text = bundle.getString(MessageReceiver.TEXT);
 

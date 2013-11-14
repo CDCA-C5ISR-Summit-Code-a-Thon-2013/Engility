@@ -119,6 +119,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         recipient.setPhoneNo(rName);
         messageSender.sendMessage(sender, messages, recipient);
 
+
+
+
+
         try{
             String sLocation = locationText.getText().toString();
             long locationRate = Long.valueOf(sLocation);
