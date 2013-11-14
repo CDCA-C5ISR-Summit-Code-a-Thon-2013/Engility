@@ -55,6 +55,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     EditText sender;
     EditText recipient;
     EditText messageText;
+    EditText locationText;
     TextView notificationText;
 
     private MapHandler mapHandler;
@@ -78,6 +79,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         sender = (EditText)findViewById(R.id.sender);
         recipient = (EditText)findViewById(R.id.recipient);
         messageText = (EditText)findViewById(R.id.send_text);
+        locationText = (EditText) findViewById(R.id.location);
         sendButton = (Button)findViewById(R.id.send_button);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +118,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Users recipient = new Users();
         recipient.setPhoneNo(rName);
         messageSender.sendMessage(sender, messages, recipient);
+
+        try{
+            String sLocation = locationText.getText().toString();
+            long locationRate = Long.valueOf(sLocation);
+            locationService.setRefreshRate(locationRate * 1000L);
+        }
+        catch (Exception e){
+            //TODO nothing for now
+        }
+
     }
 
     private void updateLocation(Location location){
