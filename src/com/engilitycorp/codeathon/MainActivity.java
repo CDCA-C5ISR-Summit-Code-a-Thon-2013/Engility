@@ -224,6 +224,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void initializeTextHandler(){
-        this.textHandler = new TextHandler();
+        this.textHandler = new TextHandler(notificationText);
     }
 }

@@ -1,7 +1,10 @@
 package com.engilitycorp.codeathon.location;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.TextView;
+import com.engilitycorp.codeathon.messaging.MessageReceiver;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,8 +15,19 @@ import android.os.Message;
  */
 public class TextHandler  extends Handler {
 
-    public void handleMessage( Message msg ){
+    private TextView textView;
 
+    public TextHandler(TextView textView){
+        this.textView = textView;
+    }
+
+    public void handleMessage( Message msg ){
+        Bundle bundle = new Bundle();
+        String user = bundle.getString(MessageReceiver.USER);
+        String text = bundle.getString(MessageReceiver.TEXT);
+
+        String msgText = user + ": " + text;
+        textView.setText(msgText);
     }
 
 
