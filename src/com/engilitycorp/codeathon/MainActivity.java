@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -69,6 +70,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
+
+        this.setTitleColor(Color.RED);
+
 
         menuLayout = (RelativeLayout)findViewById(R.id.menu_layout);
         mainLayout = (RelativeLayout)findViewById(R.id.main_layout);
@@ -170,7 +174,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 int deviceWidth = displayMetrics.widthPixels;
 
-                int menuLayoutWidth = (deviceWidth * 60) / 100; //here im coverting device percentage width into pixels, in my other_slide_in.xml or other_slide_out.xml you can see that i have set the android:toXDelta="80%",so it means the layout will move to 80% of the device screen,to work across all screens i have converted percentage width into pixels and then used it
+                int menuLayoutWidth = (deviceWidth * 60) / 80; //here im coverting device percentage width into pixels, in my other_slide_in.xml or other_slide_out.xml you can see that i have set the android:toXDelta="80%",so it means the layout will move to 80% of the device screen,to work across all screens i have converted percentage width into pixels and then used it
 
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(menuLayoutWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
 
