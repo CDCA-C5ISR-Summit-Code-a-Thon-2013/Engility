@@ -47,6 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Resources resources;
     EditText sender;
     EditText recipient;
+    EditText messageText;
 
     private MapHandler mapHandler;
     private TextHandler textHandler;
@@ -68,6 +69,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         sender = (EditText)findViewById(R.id.sender);
         recipient = (EditText)findViewById(R.id.recipient);
+        messageText = (EditText)findViewById(R.id.send_text);
 
         filterAnimation = new FilterAnimation(this);
 
