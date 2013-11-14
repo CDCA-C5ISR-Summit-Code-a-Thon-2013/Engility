@@ -30,7 +30,7 @@ public class LocationService implements LocationListener{
 
     private LocationManager locationManager;
     private Handler mapHandler;
-    private long refreshRate;
+    private long refreshRate = 60000L;
     private long lastUpdate = 0L;
 
 
@@ -39,7 +39,9 @@ public class LocationService implements LocationListener{
     }
 
     public void setRefreshRate(long refreshRate){
-        this.refreshRate = refreshRate;
+        if(refreshRate >= 60000L){
+            this.refreshRate = refreshRate;
+        }
     }
 
     public void setMapHandler(Handler mapHandler){
