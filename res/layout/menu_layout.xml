@@ -2,35 +2,101 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/menu_layout"
     android:visibility="invisible"
-    android:layout_width="100dp"
+    android:layout_width="80dp"
     android:layout_height="match_parent"
     android:background="@drawable/bg" >
 
-    <LinearLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:orientation="vertical">
+    <FrameLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:padding="10dp">
 
-       <TextView
-           android:layout_height="20dp"
-           android:layout_width="fill_parent"
-           android:textSize="20dp"
-           android:textColor="#FFFFFF"
-           android:text="Notifications go here"/>
-
-        <EditText
-            android:id="@+id/send_text"
-            android:layout_height="100dp"
-            android:layout_width="fill_parent" />
-
-        <Button
-            android:id="@+id/send_button"
-            android:layout_height="20dp"
-            android:layout_width="fill_parent"
-            android:text="Send Message"/>
-
-    </LinearLayout>
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
 
 
+           <ImageView
+               android:id="@+id/notification_icon"
+               android:layout_height="24dp"
+               android:layout_width="24dp"
+               android:src="@drawable/alert"/>
+
+            <TextView
+               android:layout_height="20dp"
+               android:layout_width="wrap_content"
+               android:textSize="12dp"
+               android:textColor="#FFFF00"
+               android:text="You Have New Messages"/>
+
+            <EditText
+                android:id="@+id/sender"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:textSize="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/back_with_border"
+                android:text="Sender"
+                android:paddingLeft="5dp"
+
+                />
+
+            <Space
+                android:layout_height="5dp"
+                android:layout_width="fill_parent" />
+
+            <EditText
+                android:id="@+id/recipient"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:textSize="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/back_with_border"
+                android:text="Recipient"
+                android:paddingLeft="5dp"
+
+                />
+
+            <Space
+                android:layout_height="10dp"
+                android:layout_width="fill_parent" />
+
+
+            <EditText
+                android:id="@+id/send_text"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:ems="10"
+                android:gravity="left|top"
+                android:inputType="textMultiLine"
+                android:textSize="10dp"
+                android:background="@drawable/back_with_border"
+                android:padding="10dp"
+                android:text="Type your message here"
+                >
+
+                <requestFocus />
+            </EditText>
+
+            <Space
+                android:layout_height="20dp"
+                android:layout_width="fill_parent" />
+
+
+            <Button
+                android:id="@+id/send_button"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                android:text="Send Message"
+                android:textSize="10dp"
+                android:textColor="#000"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </RelativeLayout>

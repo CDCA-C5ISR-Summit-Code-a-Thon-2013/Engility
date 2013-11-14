@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -43,6 +44,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Button btFilter;
     FilterAnimation filterAnimation;
     Resources resources;
+    EditText sender;
+    EditText recipient;
 
     private MapHandler mapHandler;
     private LocationService locationService;
@@ -56,11 +59,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.main_layout);
 
         menuLayout = (RelativeLayout)findViewById(R.id.menu_layout);
-
         mainLayout = (RelativeLayout)findViewById(R.id.main_layout);
 
         btFilter = (Button)findViewById(R.id.menu_button);
         btFilter.setOnClickListener(this);
+
+        sender = (EditText)findViewById(R.id.sender);
+        recipient = (EditText)findViewById(R.id.recipient);
 
         filterAnimation = new FilterAnimation(this);
 
@@ -104,15 +109,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onGlobalLayout()
             {
-                mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                menuLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
                 DisplayMetrics displayMetrics = resources.getDisplayMetrics();
 
                 int deviceWidth = displayMetrics.widthPixels;
 
-                int filterLayoutWidth = (deviceWidth * 80) / 100; //here im coverting device percentage width into pixels, in my other_slide_in.xml or other_slide_out.xml you can see that i have set the android:toXDelta="80%",so it means the layout will move to 80% of the device screen,to work across all screens i have converted percentage width into pixels and then used it
+                int menuLayoutWidth = (deviceWidth * 60) / 100; //here im coverting device percentage width into pixels, in my other_slide_in.xml or other_slide_out.xml you can see that i have set the android:toXDelta="80%",so it means the layout will move to 80% of the device screen,to work across all screens i have converted percentage width into pixels and then used it
 
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(filterLayoutWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(menuLayoutWidth, RelativeLayout.LayoutParams.MATCH_PARENT);
 
                 menuLayout.setLayoutParams(params);//here im setting the layout params for my because its has width 260 dp,so work it across all screen i first make layout adjustments so that it work across all screens resolution
 
@@ -121,7 +126,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-        final ViewTreeObserver findObserver = menuLayout.getViewTreeObserver();
+        final ViewTreeObserver findObserver = mainLayout.getViewTreeObserver();
 
         findObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
         {
@@ -131,7 +136,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
-                filterAnimation.initializeOtherAnimations(menuLayout);
+                filterAnimation.initializeOtherAnimations(mainLayout);
             }
         });
 
@@ -145,7 +150,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch(id)
         {
 
-            case R.id.menu_layout:
+            case R.id.menu_button:
 
                 filterAnimation.toggleSliding();
 
