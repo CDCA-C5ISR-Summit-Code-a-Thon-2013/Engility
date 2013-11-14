@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.engilitycorp.codeathon.FilterAnimation;
 
 import com.engilitycorp.R;
@@ -53,6 +55,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     EditText sender;
     EditText recipient;
     EditText messageText;
+    TextView notificationText;
 
     private MapHandler mapHandler;
     private TextHandler textHandler;
@@ -82,6 +85,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 submitMessage();
             }
         });
+        notificationText = (TextView)findViewById(R.id.notification_text);
 
         filterAnimation = new FilterAnimation(this);
 
