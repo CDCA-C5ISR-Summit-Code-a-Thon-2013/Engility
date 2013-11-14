@@ -115,14 +115,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         String textToSend = messageText.getText().toString();
 
-        Users sender = new Users();
-        sender.setUserName(sName);
+        Users uSender = new Users();
+        uSender.setUserName(sName);
         Messages messages = new Messages();
         messages.setMsg(textToSend);
         messages.setMsg_timestamp(new Date());
-        Users recipient = new Users();
-        recipient.setPhoneNo(rName);
-        messageSender.sendMessage(sender, messages, recipient);
+        Users uRecipient = new Users();
+        uRecipient.setPhoneNo(rName);
+        messageSender.sendMessage(uSender, messages, uRecipient);
         filterAnimation.toggleSliding();
 
 
@@ -137,6 +137,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         catch (Exception e){
             //TODO nothing for now
         }
+
+        sender.setText("");
+        recipient.setText("");
+        messageText.setText("");
+        locationText.setText("");
 
     }
 
