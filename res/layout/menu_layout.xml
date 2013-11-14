@@ -2,35 +2,76 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/menu_layout"
     android:visibility="invisible"
-    android:layout_width="100dp"
+    android:layout_width="80dp"
     android:layout_height="match_parent"
     android:background="@drawable/bg" >
 
-    <LinearLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:orientation="vertical">
+    <FrameLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:padding="20dp">
 
-       <TextView
-           android:layout_height="20dp"
-           android:layout_width="fill_parent"
-           android:textSize="20dp"
-           android:textColor="#FFFFFF"
-           android:text="Notifications go here"/>
-
-        <EditText
-            android:id="@+id/send_text"
-            android:layout_height="100dp"
-            android:layout_width="fill_parent" />
-
-        <Button
-            android:id="@+id/send_button"
-            android:layout_height="20dp"
-            android:layout_width="fill_parent"
-            android:text="Send Message"/>
-
-    </LinearLayout>
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
 
 
+           <ImageView
+               android:id="@+id/notification_icon"
+               android:layout_height="24dp"
+               android:layout_width="24dp"
+               android:src="@drawable/alert"/>
+
+            <TextView
+               android:layout_height="20dp"
+               android:layout_width="wrap_content"
+               android:textSize="12dp"
+               android:textColor="#FFFF00"
+               android:text="You Have New Messages"/>
+
+
+
+
+
+            <Space
+                android:layout_height="20dp"
+                android:layout_width="fill_parent" />
+
+
+            <EditText
+                android:id="@+id/send_text"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:ems="10"
+                android:gravity="left|top"
+                android:inputType="textMultiLine"
+                android:textSize="10dp"
+                android:background="@drawable/back_with_border"
+                android:padding="10dp"
+                android:scrollHorizontally="true"
+                android:text="Type your message here"
+                >
+
+                <requestFocus />
+            </EditText>
+
+            <Space
+                android:layout_height="20dp"
+                android:layout_width="fill_parent" />
+
+
+                <Button
+                    android:id="@+id/send_button"
+                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:text="Send Message"
+                    android:textColor="#000"
+                    android:layout_margin="10dp"
+                    />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </RelativeLayout>
