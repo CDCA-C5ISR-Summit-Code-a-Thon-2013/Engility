@@ -61,6 +61,7 @@ public class LocationService implements LocationListener{
             locationBundle.putDouble(TIME, location.getTime());
             locationMessage.setData(locationBundle);
             mapHandler.sendMessage(locationMessage);
+            lastUpdate = location.getTime();
         }
     }
 
