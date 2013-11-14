@@ -19,7 +19,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,6 +36,7 @@ public class MapHandler extends Handler {
     private GoogleMap map;
     private Map<String, Marker> userToMarkerMap = new HashMap<String, Marker>();
     private MessageSender messageSender;
+    private  Set<String> usersPhoneSet = new HashSet<String>();
 
     public MapHandler(GoogleMap map, MessageSender sender){
         super();
@@ -56,6 +59,10 @@ public class MapHandler extends Handler {
 
     }
 
+    public void addUsersPhone(String phoneNo) {
+         usersPhoneSet.add(phoneNo);
+    }
+
     private void handleMyLocation(Message msg){
         Bundle locBundle = msg.getData();
         updateLocation(locBundle.getDouble(LocationService.LAT), locBundle.getDouble(LocationService.LON), locBundle.getDouble(LocationService.TIME));
@@ -75,9 +82,18 @@ public class MapHandler extends Handler {
         Location location = new Location();
         location.setLat(lat);
         location.setLon(lon);
-        Users receiver = new Users();
-        receiver.setPhoneNo("8595367600");
-        messageSender.sendLocation(sender, location, receiver);
+
+       //loop through set and send msg to phone nos
+        for(String phone :usersPhoneSet) {
+            Users receiver = new Users();
+            receiver.setPhoneNo(phone);
+            messageSender.sendLocation(sender, location, receiver);
+        }
+
+        /*Users receiver = new Users();
+        receiver.setPhoneNo("7329486747");*/
+       // receiver.setPhoneNo("8595367600");
+  //      messageSender.sendLocation(sender, location, receiver);
     }
 
     private void handleOtherLocation(Message msg){
