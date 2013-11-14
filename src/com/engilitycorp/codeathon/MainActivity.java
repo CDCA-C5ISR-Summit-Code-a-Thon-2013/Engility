@@ -74,6 +74,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         this.setTitleColor(Color.RED);
 
 
+
         menuLayout = (RelativeLayout)findViewById(R.id.menu_layout);
         mainLayout = (RelativeLayout)findViewById(R.id.main_layout);
 
@@ -122,6 +123,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Users recipient = new Users();
         recipient.setPhoneNo(rName);
         messageSender.sendMessage(sender, messages, recipient);
+        filterAnimation.toggleSliding();
 
 
 
