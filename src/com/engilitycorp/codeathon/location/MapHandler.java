@@ -34,6 +34,7 @@ public class MapHandler extends Handler {
     private GoogleMap map;
     private Map<String, Marker> userToMarkerMap = new HashMap<String, Marker>();
     private MessageSender messageSender;
+    private boolean initialZoom = false;
 
     public MapHandler(GoogleMap map, MessageSender sender){
         super();
@@ -69,6 +70,18 @@ public class MapHandler extends Handler {
             myMarker.remove();
         }
         myMarker = newMarker;
+
+        if( !initialZoom  ){
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng)
+                    .zoom(15)                   // Sets the zoom
+                    .bearing(0)                // Sets the orientation of the camera
+                    .tilt(0)                   // Sets the tilt of the camera to X degrees
+                    .build();                   // Creates a CameraPosition from the builder
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            initialZoom = true;
+        }
+
 
         Users sender = new Users(  );
         sender.setUserName("KEITH");
