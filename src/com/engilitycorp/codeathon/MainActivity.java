@@ -21,6 +21,7 @@ import com.engilitycorp.codeathon.FilterAnimation;
 import com.engilitycorp.R;
 import com.engilitycorp.codeathon.location.LocationService;
 import com.engilitycorp.codeathon.location.MapHandler;
+import com.engilitycorp.codeathon.location.TextHandler;
 import com.engilitycorp.codeathon.messaging.MessageReceiver;
 import com.engilitycorp.codeathon.messaging.MessageSender;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,6 +46,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Resources resources;
 
     private MapHandler mapHandler;
+    private TextHandler textHandler;
     private LocationService locationService;
     private MessageReceiver messageReceiver;
     private MessageSender messageSender;
@@ -67,6 +69,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         resources = getResources();
 
         initializeMessageSend();
+        initializeTextHandler();
         initializeLocationUpdates();
         initializeMessageReceive();
         initializeAnimations();
@@ -168,7 +171,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void initializeMessageReceive(){
-        messageReceiver = new MessageReceiver(mapHandler);
+        messageReceiver = new MessageReceiver(mapHandler, textHandler);
         IntentFilter receivedIntentFilter = new IntentFilter();
         receivedIntentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
         registerReceiver(messageReceiver, receivedIntentFilter);
@@ -177,5 +180,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void initializeMessageSend(){
         messageSender = MessageSender.getMessageSender();
+    }
+
+    private void initializeTextHandler(){
+        this.textHandler = new TextHandler();
     }
 }
