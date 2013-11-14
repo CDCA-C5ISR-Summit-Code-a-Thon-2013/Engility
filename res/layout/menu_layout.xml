@@ -60,6 +60,22 @@
                 />
 
             <Space
+                android:layout_height="5dp"
+                android:layout_width="fill_parent" />
+
+            <EditText
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:textSize="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/back_with_border"
+                android:text="Location"
+                android:paddingLeft="5dp"
+
+                />
+
+            <Space
                 android:layout_height="10dp"
                 android:layout_width="fill_parent" />
 
