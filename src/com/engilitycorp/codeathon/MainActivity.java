@@ -104,7 +104,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onGlobalLayout()
             {
-                mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                menuLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
                 DisplayMetrics displayMetrics = resources.getDisplayMetrics();
 
@@ -121,7 +121,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-        final ViewTreeObserver findObserver = menuLayout.getViewTreeObserver();
+        final ViewTreeObserver findObserver = mainLayout.getViewTreeObserver();
 
         findObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
         {
@@ -131,7 +131,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 mainLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
-                filterAnimation.initializeOtherAnimations(menuLayout);
+                filterAnimation.initializeOtherAnimations(mainLayout);
             }
         });
 
